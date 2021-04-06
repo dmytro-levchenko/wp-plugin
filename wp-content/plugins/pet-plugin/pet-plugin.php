@@ -69,10 +69,9 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-pet-plugin.php';
  *
  * @since    1.0.0
  */
-function run_pet_plugin() {
-
+function run_pet_plugin()
+{
 	$plugin = new Pet_Plugin();
 	$plugin->run();
-
 }
 run_pet_plugin();
