@@ -51,7 +51,19 @@ class Pet_Plugin_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+			
+		//Add action for menu
+		add_action("admin_menu", array($this, "options_page"));
+	}
 
+	// Add function 
+	public function options_page() {
+		add_menu_page("Plugin Options", "Plugin Options", "manage_options","plugin-options", array($this, 'render'));
+		add_submenu_page("plugin-options", "Plugin Options Advanced", "Plugin Options Advanced", "manage_options","plugin-options-advanced", array($this, 'render'));
+	}
+
+	public function render() {
+		require plugin_dir_path( dirname( __FILE__ )) . 'admin/partials/pet-plugin-admin-display.php';
 	}
 
 	/**

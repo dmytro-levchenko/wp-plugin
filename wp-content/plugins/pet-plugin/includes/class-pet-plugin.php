@@ -27,7 +27,8 @@
  * @subpackage Pet_Plugin/includes
  * @author     Dev <dev@mail.com>
  */
-class Pet_Plugin {
+class Pet_Plugin
+{
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
