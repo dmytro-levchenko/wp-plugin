@@ -54,12 +54,24 @@ class Pet_Plugin_Admin {
 			
 		//Add action for menu
 		add_action("admin_menu", array($this, "options_page"));
+		add_action('admin_head', array($this, "admin_load_js"));
+
+		remove_action( 'wp_head', 'feed_links_extra', 3 );
+		remove_action( 'wp_head', 'feed_links', 2 );
+		remove_action( 'wp_head', 'rsd_link' );
+		remove_action( 'wp_head', 'wlwmanifest_link' );
+		remove_action( 'wp_head', 'index_rel_link' );
+		remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 );
+		remove_action( 'wp_head', 'start_post_rel_link', 10, 0 );
+		remove_action( 'wp_head', 'adjacent_posts_rel_link', 10, 0 );
+		remove_action( 'wp_head', 'wp_generator' );
+		remove_action('wp_head','rel_canonical');
 	}
 
 	// Add function 
 	public function options_page() {
-		add_menu_page("Plugin Options", "Plugin Options", "manage_options","plugin-options", array($this, 'render'));
-		add_submenu_page("plugin-options", "Plugin Options Advanced", "Plugin Options Advanced", "manage_options","plugin-options-advanced", array($this, 'render'));
+		add_menu_page("Plugin Options", "Plugin Options", "manage_options", "plugin-options", array($this, 'render'));
+		add_submenu_page("plugin-options", "Plugin Options Advanced", "Plugin Options Advanced", "manage_options", "plugin-options-advanced", array($this, 'render'));
 	}
 
 	public function render() {
@@ -89,6 +101,11 @@ class Pet_Plugin_Admin {
 
 	}
 
+	public function admin_load_js(){
+		echo '<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />';
+		echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>';
+	}
+
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
@@ -109,7 +126,9 @@ class Pet_Plugin_Admin {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/pet-plugin-admin.js', array( 'jquery' ), $this->version, false );
-
+		
 	}
+
+	
 
 }
